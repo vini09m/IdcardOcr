@@ -88,10 +88,12 @@ POST /ocrData
 Create new OCR data.
 
 
-It takes a bit time to process the data :)
+
 
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/d51b355a-fd77-4641-86de-6f6fe17c4fae)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/52b60911-5950-4dad-9015-9c37495a5309)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/04f81336-583a-4803-80c9-4af37e70802f)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/d2958a59-ec0c-497a-a438-9a49db4facb0)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/ffb1452d-74a6-4ce2-a159-88f3959aedc3)
+
+### It takes a bit time to process the data :)
