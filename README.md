@@ -72,10 +72,6 @@ Access the data through the provided API endpoints.
 POST /upload
 Upload an image for OCR data extraction.
 
-![image](https://github.com/vini09m/IdcardOcr/assets/108429128/d51b355a-fd77-4641-86de-6f6fe17c4fae)
-
-
-
 GET /ocrData
 Retrieve all OCR data.
 
@@ -90,6 +86,8 @@ Upload JSON data for storage.
 
 POST /ocrData
 Create new OCR data.
+
+![image](https://github.com/vini09m/IdcardOcr/assets/108429128/d51b355a-fd77-4641-86de-6f6fe17c4fae)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/52b60911-5950-4dad-9015-9c37495a5309)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/04f81336-583a-4803-80c9-4af37e70802f)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/d2958a59-ec0c-497a-a438-9a49db4facb0)
