@@ -8,20 +8,24 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
 
+// Set the path for Google Cloud Vision API credentials
 process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, 'ServiceAccountToken.json');
 
+// Enable CORS
 app.use(cors());
 
+// Create a client for Google Cloud Vision API
 const client = new ImageAnnotatorClient();
 
+// Set up multer for handling file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+// Use JSON parsing middleware
 app.use(express.json());
 
 // Connect to MongoDB Atlas
 const URI = "mongodb+srv://vinitamertia:t1YtqSTDWLhTcgAN@cluster0.pjej4lm.mongodb.net/nodeJsEasyWays?retryWrites=true&w=majority";
-//mongodb+srv://vinitamertia:LKQDuXjAXITQ1Rg6@cluster0.6l5umrd.mongodb.net/nodeJsEasyWays?retryWrites=true&w=majority
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
@@ -43,6 +47,7 @@ const ocrDataSchema = new mongoose.Schema({
 
 const OCRData = mongoose.model('OCRData', ocrDataSchema);
 
+// Handle file upload and text detection
 app.post('/upload', upload.single('image'), async (req, res) => {
     try {
         const [result] = await client.textDetection(req.file.buffer);
@@ -60,10 +65,6 @@ app.post('/upload', upload.single('image'), async (req, res) => {
             date_of_expiry: extractInfo(englishOnlyText, 'Date of Expiry'),
         };
 
-        // // Save the data to MongoDB
-        // const ocrData = new OCRData(data);
-        // await ocrData.save();
-
         res.json({ text: englishOnlyText, data });
     } catch (error) {
         console.error(error);
@@ -71,6 +72,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     }
 });
 
+// Fetch all OCR data
 app.get('/ocrData', async (req, res) => {
     try {
         const allOCRData = await OCRData.find();
@@ -81,6 +83,7 @@ app.get('/ocrData', async (req, res) => {
     }
 });
 
+// Update OCR data by ID
 app.put('/ocrData/:id', async (req, res) => {
     const { id } = req.params;
     const newData = req.body;
@@ -94,6 +97,7 @@ app.put('/ocrData/:id', async (req, res) => {
     }
 });
 
+// Delete OCR data by ID
 app.delete('/ocrData/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -106,14 +110,13 @@ app.delete('/ocrData/:id', async (req, res) => {
     }
 });
 
+// Save JSON data to MongoDB
 app.post('/uploadJson', (req, res) => {
     const jsonDataString = req.body.jsonData;
 
     try {
-        // Parse the JSON data string
         const jsonData = JSON.parse(jsonDataString);
 
-        // Save the JSON data to MongoDB
         const jsonOutput = new OCRData(jsonData);
         jsonOutput.save()
             .then(() => {
@@ -129,14 +132,12 @@ app.post('/uploadJson', (req, res) => {
     }
 });
 
+// Create new OCR data
 app.post('/ocrData', async (req, res) => {
   const newData = req.body;
 
   try {
-      // Create a new OCRData document
       const ocrData = new OCRData(newData);
-
-      // Save the new data to MongoDB
       await ocrData.save();
 
       res.status(201).json({ message: 'OCR data created successfully', data: ocrData });
@@ -146,72 +147,13 @@ app.post('/ocrData', async (req, res) => {
   }
 });
 
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
 // Helper function to extract information using regular expressions
 function extractInfo(text, keyword) {
     const match = text.match(new RegExp(`${keyword}\\s*([^A-Za-z]+)`));
     return match ? match[1].trim() : '';
 }
 
-
-
-
-
-// const express = require('express');
-// const cors = require('cors');
-// const path = require('path');
-// const mongoose = require('mongoose');
-
-// const app = express();
-// const port = 5000;
-
-// app.use(cors());
-// app.use(express.json());
-
-// // Connect to MongoDB Atlas
-// const URI = "mongodb+srv://vinitamertia:t1YtqSTDWLhTcgAN@cluster0.pjej4lm.mongodb.net/nodeJsEasyWays?retryWrites=true&w=majority";
-// mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// const db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'connection error'));
-// db.once('open', function () {
-//     console.log("Database connected successfully");
-// });
-
-// // Define a mongoose schema for storing JSON output
-// const jsonOutputSchema = new mongoose.Schema({
-//     identification_number: String,
-//     name: String,
-//     last_name: String,
-//     date_of_birth: String,
-//     date_of_issue: String,
-//     date_of_expiry: String,
-// });
-
-// const JsonOutput = mongoose.model('JsonOutput', jsonOutputSchema);
-
-// app.post('/uploadJson', (req, res) => {
-//     const jsonData = req.body;
-
-//     // Save the JSON output to MongoDB
-//     const jsonOutput = new JsonOutput(jsonData);
-//     jsonOutput.save()
-//         .then(() => {
-//             res.status(200).json({ message: 'JSON data saved successfully' });
-//         })
-//         .catch((error) => {
-//             console.error(error);
-//             res.status(500).json({ error: 'Internal Server Error' });
-//         });
-// });
-
-// app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-// });
-
-
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
