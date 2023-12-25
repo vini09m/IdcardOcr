@@ -67,7 +67,7 @@ const App = () => {
       const formData = new FormData();
       formData.append('image', selectedFile);
   
-      axios.post('http://localhost:5000/upload', formData, {
+      axios.post('https://ocr-detect-92zt.onrender.com/upload', formData, {
           headers: {
               'Content-Type': 'multipart/form-data',
           },
@@ -88,7 +88,7 @@ const App = () => {
           setJsonData(parsedData);
   
           // Send the JSON data string to the server
-          axios.post('http://localhost:5000/uploadJson', { jsonData: JSON.stringify(parsedData, null, 2) })
+          axios.post('https://ocr-detect-92zt.onrender.com/uploadJson', { jsonData: JSON.stringify(parsedData, null, 2) })
               .then(serverResponse => {
                   console.log(serverResponse.data.message);
   
@@ -158,7 +158,7 @@ const App = () => {
 
     const fetchOcrData = () => {
         // Fetch OCR data from the server
-        axios.get('http://localhost:5000/ocrData')
+        axios.get('https://ocr-detect-92zt.onrender.com/ocrData')
             .then(response => {
                 setOcrData(response.data);
             })
@@ -206,7 +206,7 @@ const App = () => {
       };
   
       // Send the new OCR data to the server
-      axios.post('http://localhost:5000/ocrData', newOcrData)
+      axios.post('https://ocr-detect-92zt.onrender.com/ocrData', newOcrData)
           .then(response => {
               console.log(response.data.message);
               // Fetch updated OCR data after creating a new entry
@@ -253,7 +253,7 @@ const App = () => {
       };
   
       // Send the updated data to the server
-      axios.put(`http://localhost:5000/ocrData/${id}`, updatedData)
+      axios.put(`https://ocr-detect-92zt.onrender.com/ocrData/${id}`, updatedData)
           .then(response => {
               console.log(response.data.message);
               // Fetch updated OCR data after update
@@ -270,7 +270,7 @@ const App = () => {
 
       if (confirmDeletion) {
           // Send a request to delete the data by ID
-          axios.delete(`http://localhost:5000/ocrData/${id}`)
+          axios.delete(`https://ocr-detect-92zt.onrender.com/ocrData/${id}`)
               .then(response => {
                   console.log(response.data.message);
                   // Fetch updated OCR data after deletion
