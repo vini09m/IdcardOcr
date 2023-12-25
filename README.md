@@ -34,7 +34,13 @@ To compile and run the app, follow these steps:
    cd ocr-data-extraction-app
    
 1)Install Dependencies
-npm install
+   npm install
+   If you get permission denied do the following in detection folder:
+      rm -rf node_modules 
+      rm package-lock.json
+      npm install
+      npm run build
+      npm start
 
 2)Set up Google Cloud Vision API Credentials
 Generate a JSON key file for your Google Cloud Project.
