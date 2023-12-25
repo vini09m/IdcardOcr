@@ -93,4 +93,4 @@ Create new OCR data.
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/d2958a59-ec0c-497a-a438-9a49db4facb0)
 ![image](https://github.com/vini09m/IdcardOcr/assets/108429128/ffb1452d-74a6-4ce2-a159-88f3959aedc3)
 
-
+It takes a bit time to process the data :)
