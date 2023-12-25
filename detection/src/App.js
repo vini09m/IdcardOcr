@@ -262,7 +262,7 @@ const App = () => {
           .catch(error => console.error(error));
   };
   
-  
+  console.log(extractedText);
 
     const handleDelete = (id) => {
       // Confirm the deletion with the user
