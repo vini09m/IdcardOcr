@@ -17,7 +17,7 @@ const App = () => {
     const handleClear = () => {
       setSelectedFile(null);
       setImageUrl(null);
-      setExtractedText('');
+      //setExtractedText('');
       setJsonData(null);
           // Reset the value of the file input to clear the selected file
     const fileInput = document.querySelector('input[type="file"]');
