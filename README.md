@@ -1,5 +1,6 @@
 # OCR Data Extraction App
 ### https://clever-faloodeh-e7c31a.netlify.app/
+## Kindly wait after pressing update and process button as it takes a bit time to show the results
 
 This project is an OCR (Optical Character Recognition) data extraction app built with Node.js, Express, MongoDB, and Google Cloud Vision API.
 
