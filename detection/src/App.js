@@ -104,7 +104,7 @@ const App = () => {
   const parseExtractedText = (lines) => {
     const jsonData = {
       identification_number: extractValue(lines, /\b(\d{1,4}\s*){5,}\d{1,4}\b/),
-      name: extractValue(lines, /Name\s*([\s\n]*[A-Za-z]+\s[A-Za-z]+)/, 'Name'),
+      name: extractValue(lines, /Name\s*([\s\n]*[A-Za-z]+\s?[A-Za-z]+)/, 'Name'),
       last_name: extractValue(lines, /Last [nN]ame\s*([\s\n]*[A-Za-z]+)/, 'Last name'),
       date_of_birth: extractValue(lines, /\d{1,2}\s[A-Za-z]+\s\d{4}/, 'Date of Birth'),
       date_of_issue: extractLineAbove(lines, 'Date of Issue'),
@@ -123,6 +123,10 @@ const App = () => {
     if (!jsonData.date_of_birth) {
       jsonData.date_of_birth = extractLineBelow(lines, 'Date of Birth');
     }
+    if(!jsonData.date_of_expiry)
+        {
+          jsonData.date_of_expiry=extractLineAbove(lines, 'Date of Exp')
+        }
     return jsonData;
   };
 
