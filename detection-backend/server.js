@@ -6,7 +6,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 const app = express();
-const port = 5000;
+const port = 5001;
 
 // Set the path for Google Cloud Vision API credentials
 process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, 'ServiceAccountToken.json');
@@ -65,8 +65,8 @@ app.post('/upload', upload.single('image'), async (req, res) => {
             date_of_issue: extractInfo(englishOnlyText, 'Date of Issue'),
             date_of_expiry: extractInfo(englishOnlyText, 'Date of Expiry'),
         };
-
-        data.state=jsonData.state = (jsonData.identification_number && jsonData.name && jsonData.last_name && jsonData.date_of_birth && jsonData.date_of_issue && jsonData.date_of_expiry) ? 'Success' : 'Failure';
+        
+        data.state = (data.identification_number && data.name && data.last_name && data.date_of_birth && data.date_of_issue && data.date_of_expiry) ? 'Success' : 'Failure';
 
         res.json({ text: englishOnlyText, data });
     } catch (error) {
@@ -140,7 +140,8 @@ app.post('/ocrData', async (req, res) => {
   const newData = req.body;
 
   try {
-      newData.state=jsonData.state = (newData.identification_number && newData.name && newData.last_name && newData.date_of_birth && newData.date_of_issue && newData.date_of_expiry) ? 'Success' : 'Failure';
+    newData.state = (newData.identification_number && newData.name && newData.last_name && newData.date_of_birth && newData.date_of_issue && newData.date_of_expiry) ? 'Success' : 'Failure';
+
       const ocrData = new OCRData(newData);
       await ocrData.save();
 
