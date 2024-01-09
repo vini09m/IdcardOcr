@@ -9,10 +9,9 @@ const app = express();
 const port = 5001;
 
 // Set the path for Google Cloud Vision API credentials
-const pathToServiceAccount = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-process.env.GOOGLE_APPLICATION_CREDENTIALS = pathToServiceAccount;
-
+// Set the path for Google Cloud Vision API credentials
 process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, 'ServiceAccountToken.json');
+
 
 // Enable CORS
 app.use(cors());
